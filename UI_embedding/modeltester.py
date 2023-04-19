@@ -27,9 +27,10 @@ args = parser.parse_args()
 
 n = args.num_predictors
 bert_size = 768
-bert = bert = SentenceTransformer('bert-base-nli-mean-tokens')
+bert = SentenceTransformer('bert-base-nli-mean-tokens')
 predictor = HiddenLabelPredictorModel(bert, bert_size, n)
-predictor.load_state_dict(torch.load(args.model))
+# predictor.load_state_dict(torch.load(args.model))
+predictor.from_pretrained(args.model)
 
 vocab_path = args.vocab_path
 
