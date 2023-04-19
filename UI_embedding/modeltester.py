@@ -34,7 +34,7 @@ predictor.load_state_dict(torch.load(args.model), strict=False)
 vocab_path = args.vocab_path
 
 with open(vocab_path) as f:
-    vocab_list = json.load(f, encoding='utf8')
+    vocab_list = json.load(f)
 
 vocab = BertScreenVocab(vocab_list, len(vocab_list), bert, embedding_path=args.vocab_embedding_path)
 
