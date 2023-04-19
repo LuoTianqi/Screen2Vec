@@ -24,6 +24,8 @@ parser.add_argument("-ve", "--vocab_embedding_path", type=str, help="path to voc
 parser.add_argument("-d", "--data", required=True, type=str, default=None, help="path to dataset")
 parser.add_argument("-hi", "--hierarchy", action="store_true")
 parser.add_argument("-bs", "--batch_size", required=True, type=int, help="batch size")
+parser.add_argument("-bki", "--break_idx", default=-1, type=int, help="break test at data idx")
+
 args = parser.parse_args()
 
 n = args.num_predictors
@@ -82,8 +84,8 @@ data_itr = tqdm.tqdm(enumerate(data_loader),
 
 for idx, data in data_itr:
     # debug
-    if i >= 100:
-        print("break at i = 100")
+    if args.break_idx > 0 and i >= args.break_idx:
+        print("break at i = " + str(i))
         break
     # end debug
     
