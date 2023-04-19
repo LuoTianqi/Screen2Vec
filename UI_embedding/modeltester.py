@@ -31,7 +31,7 @@ bert_size = 768
 bert = SentenceTransformer('bert-base-nli-mean-tokens')
 predictor = HiddenLabelPredictorModel(bert, bert_size, n)
 predictor.load_state_dict(torch.load(args.model), strict=False)
-predictor.cuda()
+# predictor.cuda()
 
 vocab_path = args.vocab_path
 
@@ -90,7 +90,7 @@ for idx, data in data_itr:
 # run it through the network
     i+=1
     element = data[0]
-    context = data[1].cuda()
+    context = data[1]
     # forward the training stuff (prediction)
     prediction_output = predictor(context).cpu() #input here
     element_target_index = vocab.get_index(element[0])
