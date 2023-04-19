@@ -79,6 +79,12 @@ data_itr = tqdm.tqdm(enumerate(data_loader),
                               bar_format="{l_bar}{r_bar}")
 
 for idx, data in data_itr:
+    # debug
+    if i >= 100:
+        print("break at i = 100")
+        break
+    # end debug
+    
 # run it through the network
     i+=1
     element = data[0]
