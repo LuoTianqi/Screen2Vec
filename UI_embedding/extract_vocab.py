@@ -3,6 +3,7 @@ from dataset.rico_dao import load_rico_screen_dict
 import argparse
 import json
 import os
+import tqdm
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
@@ -17,7 +18,7 @@ args = parser.parse_args()
 vocab = set()
 rico_dir = args.dataset
 
-for package_dir in os.listdir(rico_dir):
+for package_dir in tqdm.tqdm(os.listdir(rico_dir)):
     if os.path.isdir(rico_dir + '/' + package_dir):
         # for each package directory
         for trace_dir in os.listdir(rico_dir + '/' + package_dir):
