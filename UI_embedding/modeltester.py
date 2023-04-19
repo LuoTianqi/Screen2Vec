@@ -23,6 +23,7 @@ parser.add_argument("-v", "--vocab_path", required=True, type=str, help="path to
 parser.add_argument("-ve", "--vocab_embedding_path", type=str, help="path to vocab embedding")
 parser.add_argument("-d", "--data", required=True, type=str, default=None, help="path to dataset")
 parser.add_argument("-hi", "--hierarchy", action="store_true")
+parser.add_argument("-bs", "--batch_size", required=True, type=int, help="batch size")
 args = parser.parse_args()
 
 n = args.num_predictors
@@ -70,7 +71,7 @@ total_vector_lengths = 0
 # load the data
 dataset_rico = RicoDataset(input_path, hierarchy=args.hierarchy)
 dataset = ScreenDataset(dataset_rico, n)
-data_loader = DataLoader(dataset, batch_size=1)
+data_loader = DataLoader(dataset, batch_size=args.batch_size)
 
 
 i = 0
@@ -88,9 +89,8 @@ for idx, data in data_itr:
     
 # run it through the network
     i+=1
-    data.cuda()
     element = data[0]
-    context = data[1]
+    context = data[1].cuda()
     # forward the training stuff (prediction)
     prediction_output = predictor(context).cpu() #input here
     element_target_index = vocab.get_index(element[0])
